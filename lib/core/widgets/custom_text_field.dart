@@ -8,7 +8,7 @@ class CustomTextField extends StatelessWidget {
     this.validator,
     this.controller,
     this.maxLines,
-    this.minLines, this.suffixIcon,
+    this.minLines, this.suffixIcon, this.readOnly, this.onTap,
   });
 
   final String? hint;
@@ -17,6 +17,8 @@ class CustomTextField extends StatelessWidget {
   final TextEditingController? controller;
   final int? maxLines;
   final int? minLines;
+  final bool? readOnly;
+  final Function()? onTap;
   final String? Function(String?)? validator;
 
   @override
@@ -24,6 +26,8 @@ class CustomTextField extends StatelessWidget {
     return TextFormField(
       controller: controller,
       validator: validator,
+      readOnly: readOnly ?? false,
+      onTap: onTap,
       decoration: InputDecoration(hintText: hint,
       suffixIcon: suffixIcon
       ),

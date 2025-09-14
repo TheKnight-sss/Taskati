@@ -3,17 +3,17 @@ import 'package:taskati/core/utils/appcolor.dart';
 import 'package:taskati/core/utils/text_styles.dart';
 
 class MainButton extends StatelessWidget {
-  const MainButton({super.key, required this.text, required this.onPressed, required this.width, });
+  const MainButton({super.key, required this.text, required this.onPressed, this.width, this.height});
 
   final String text;
-  final double height = 55;
-  final double width ;
+  final double? height;
+  final double? width;
   final Function() onPressed;
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: height,
+      height: height ?? 55,
       width: width ?? double.infinity,
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
