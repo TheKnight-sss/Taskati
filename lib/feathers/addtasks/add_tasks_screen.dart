@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:intl/intl.dart';
-import 'package:taskati/core/utils/appcolor.dart';
+import 'package:taskati/core/constants/taskcolors.dart' as TaskColors;
+import 'package:taskati/core/functions/navigation.dart';
+import 'package:taskati/core/models/task_model.dart';
+import 'package:taskati/core/services/local_helper.dart';
+import 'package:taskati/core/utils/AppColor.dart';
 import 'package:taskati/core/utils/text_styles.dart';
 import 'package:taskati/core/widgets/custom_text_field.dart';
 import 'package:taskati/core/widgets/main_button.dart';
+import 'package:taskati/feathers/home/pages/home_screen.dart';
 
 class AddTasksScreen extends StatefulWidget {
   const AddTasksScreen({super.key});
@@ -25,12 +30,9 @@ class _AddTasksScreenState extends State<AddTasksScreen> {
   var endTimeController = TextEditingController(
     text: DateFormat('hh:mm a').format(DateTime.now()),
   );
+  var formKey = GlobalKey<FormState>();
 
-  List<Color> Colors = [
-    Appcolor.redColor,
-    Appcolor.primaryColor,
-    Appcolor.orangeColor,
-  ];
+  
 
   int currentIndex = 0;
   @override
@@ -39,72 +41,102 @@ class _AddTasksScreenState extends State<AddTasksScreen> {
       bottomNavigationBar: Padding(
         padding: const EdgeInsets.fromLTRB(16, 8, 16, 10),
         child: MainButton(
-          text: "Add Task",
-          onPressed: () {},
+          text: "Create Task",
+          onPressed: () async {
+            if (formKey.currentState!.validate()) {
+              String id = DateTime.now().millisecondsSinceEpoch.toString()+ titleController.text;
+            await  LocalHelper.putTask(id, TaskModel(
+                id: id,
+                title: titleController.text,
+                description: descriptionController.text,
+                date: dateController.text,
+                startTime: startTimeController.text,
+                endTime: endTimeController.text,
+                color: currentIndex,
+                isCompleted: false,
+              ));
+              pushAndRemoveUntil(context, HomeScreen());
+            }
+          },
           width: double.infinity,
         ),
       ),
       appBar: AppBar(
         title: Text(
           'Add Tasks',
-          style: TextStyles.titleStyle(color: Appcolor.primaryColor),
+          style: TextStyles.titleStyle(color: AppColor.primaryColor),
         ),
         centerTitle: true,
       ),
-      body: Padding(
+      body: _addTaskBody(),
+    );
+  }
+
+  SingleChildScrollView _addTaskBody() {
+    return SingleChildScrollView(
+      child: Padding(
         padding: const EdgeInsets.all(20),
-        child: Column(
-          children: [
-            Row(children: [Text('Title', style: TextStyles.titleStyle())]),
-            CustomTextField(
-              hint: 'Enter your title',
-              controller: titleController,
-            ),
-            Gap(10),
-            Row(
-              children: [Text('Description', style: TextStyles.titleStyle())],
-            ),
-            CustomTextField(
-              hint: 'Enter your description',
-              maxLines: 6,
-              minLines: 4,
-              controller: descriptionController,
-            ),
-            Gap(10),
-            DateField(dateController: dateController),
-            Gap(10),
-            TimeFields(
-              startTimeController: startTimeController,
-              endTimeController: endTimeController,
-            ),
-            Gap(10),
-            Row(
-              spacing: 8,
-              children: List.generate(3, (index) {
-                return GestureDetector(
-                  onTap: () {
-                    setState(() {
-                      currentIndex = index;
-                    });
-                  },
-                  child: CircleAvatar(
-                    backgroundColor: Colors[index],
-                    child: currentIndex == index
-                        ? Icon(Icons.check, color: Appcolor.accentColor)
-                        : null,
-                  ),
-                );
-              }),
-            ),
-          ],
+        child: Form(
+          key: formKey,
+          child: Column(
+            children: [
+              Row(children: [Text('Title', style: TextStyles.titleStyle())]),
+              CustomTextField(
+                hint: 'Enter your title',
+                controller: titleController,
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Title is required';
+                  }
+                  return null;
+                },
+              ),
+              Gap(10),
+              Row(
+                children: [Text('Description (Optional)', style: TextStyles.titleStyle())],
+              ),
+              CustomTextField(
+                hint: 'Enter your description',
+                maxLines: 6,
+                minLines: 4,
+                controller: descriptionController,
+              ),
+              Gap(10),
+              _DateField(dateController: dateController),
+              Gap(10),
+              TimeFields(
+                startTimeController: startTimeController,
+                endTimeController: endTimeController,
+              ),
+              Gap(10),
+              Row(
+                spacing: 8,
+                children: List.generate(3, (index) {
+                  return GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        currentIndex = index;
+                      });
+                    },
+                    child: CircleAvatar(
+                      backgroundColor: TaskColors.colors[index],
+                      child: currentIndex == index
+                          ? Icon(Icons.check, color: AppColor.accentColor)
+                          : null,
+                    ),
+                  );
+                }),
+              ),
+            ],
+          ),
         ),
       ),
     );
   }
 }
 
-class DateField extends StatelessWidget {
-  const DateField({super.key, required this.dateController});
+class _DateField extends StatelessWidget {
+  const _DateField({required this.dateController});
 
   final TextEditingController dateController;
 

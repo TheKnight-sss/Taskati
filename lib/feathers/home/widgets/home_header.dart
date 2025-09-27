@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
 import 'package:taskati/core/constants/appimages.dart';
 import 'package:taskati/core/services/local_helper.dart';
 import 'package:taskati/core/utils/appcolor.dart';
@@ -14,25 +15,27 @@ class HomeHeader extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
         Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
               "Hello, ${LocalHelper.getData(LocalHelper.xname) ?? 'User'}",
               style: TextStyle(
                 fontSize: 20,
                 fontWeight: FontWeight.bold,
-                color: Appcolor.primaryColor,
+                color: AppColor.primaryColor,
               ),
             ),
+            Gap(5),
             Text(
-              "have a nice day",
-              style: TextStyles.smallStyle(color: Appcolor.darkColor),
+              "Have a nice day",
+              style: TextStyles.bodyStyle(color: AppColor.darkColor, fontSize: 16),
             ),
           ],
         ),
         Spacer(),
         CircleAvatar(
           radius: 20,
-          backgroundColor: Appcolor.primaryColor,
+          backgroundColor: AppColor.primaryColor,
           backgroundImage: LocalHelper.getData(LocalHelper.ximage).isNotEmpty
               ? FileImage(File(LocalHelper.getData(LocalHelper.ximage)))
               : AssetImage(AppImages.emptyUser),

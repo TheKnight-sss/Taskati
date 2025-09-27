@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:taskati/core/constants/appfonts.dart';
 import 'package:taskati/core/services/local_helper.dart';
-import 'package:taskati/core/utils/appcolor.dart';
+import 'package:taskati/core/utils/AppColor.dart';
 import 'package:taskati/feathers/splash/splash_screen.dart';
 
 import 'package:hive_flutter/hive_flutter.dart';
@@ -27,15 +27,15 @@ class MainApp extends StatelessWidget {
         inputDecorationTheme: InputDecorationTheme(
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10),
-            borderSide: const BorderSide(color: Appcolor.primaryColor),
+            borderSide: const BorderSide(color: AppColor.primaryColor),
           ),
           focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10),
-            borderSide: const BorderSide(color: Appcolor.primaryColor),
+            borderSide: const BorderSide(color: AppColor.primaryColor),
           ),
           errorBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10),
-            borderSide: const BorderSide(color: Appcolor.redColor),
+            borderSide: const BorderSide(color: AppColor.redColor),
           ),
         ),
       ),

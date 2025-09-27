@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:taskati/core/utils/appcolor.dart';
+import 'package:taskati/core/utils/AppColor.dart';
 import 'package:taskati/core/utils/text_styles.dart';
 
 class MainButton extends StatelessWidget {
@@ -17,7 +17,7 @@ class MainButton extends StatelessWidget {
       width: width ?? double.infinity,
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
-          backgroundColor: Appcolor.primaryColor,
+          backgroundColor: AppColor.primaryColor,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(15),
           ),

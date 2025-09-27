@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:taskati/core/functions/navigation.dart';
+import 'package:taskati/core/utils/AppColor.dart';
 import 'package:taskati/core/utils/text_styles.dart';
 import 'package:taskati/core/widgets/main_button.dart';
 import 'package:taskati/feathers/addtasks/add_tasks_screen.dart';
@@ -19,11 +20,11 @@ class TodayHeader extends StatelessWidget {
             children: [
               Text(
                 DateFormat.yMMMMd().format(DateTime.now()),
-                style: TextStyles.titleStyle(),
+                style: TextStyles.titleStyle(color: AppColor.primaryColor),
               ),
               Text(
                 "Today",
-                style: TextStyles.titleStyle(),
+                style: TextStyles.titleStyle(color: AppColor.primaryColor),
               ),
             ],
           ),
