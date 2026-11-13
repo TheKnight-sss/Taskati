@@ -28,7 +28,7 @@ class _TaskListBuilderState extends State<TaskListBuilder> {
           for(var task in box.values){
             if(task.date == widget.date){
               tasks.add(task);
-            }//
+            }
           }
           return ListView.separated(
             itemCount: tasks.length,
