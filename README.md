@@ -1,2 +1,2 @@
 # Taskati
-Tasks Managmnet Application.
+- Tasks Managment Application.
