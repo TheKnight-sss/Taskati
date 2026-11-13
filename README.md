@@ -3,6 +3,6 @@ Taskati is an Management Application that helping users to organize their daily 
 
 ## Features
 - addtask
-* home
-* splash
-* upload
+- home
+- splash
+- upload
