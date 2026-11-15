@@ -8,8 +8,9 @@ Taskati is an Management Application that helping users to organize their daily 
   - Ability to edit profile information (image & name) anytime.
  - **Task Management**
       - Add a new task with:
-    - Title  
-    - Description  
-    - Date  
-    - Start & End Time  
-    - Task Color (for better visual organization)
+          - Title  
+          - Description  
+          - Date  
+          - Start & End Time  
+          - Task Color (for better visual organization)
+ 
