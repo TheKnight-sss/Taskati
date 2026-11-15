@@ -6,4 +6,5 @@ List<Color> colors = [
   AppColors.primarycolor,
   AppColors.redcolor,
   AppColors.orangecolor,
+  AppColors.greycolor,
 ];

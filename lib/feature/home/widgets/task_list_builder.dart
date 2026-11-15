@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:lottie/lottie.dart';
+import 'package:taskati/core/constants/app_images.dart';
+import 'package:taskati/core/constants/task_colors.dart';
 import 'package:taskati/core/models/task_model.dart';
 import 'package:taskati/core/services/local_helper.dart';
+import 'package:taskati/core/utils/colors.dart';
+import 'package:taskati/core/utils/text_style.dart';
 
 import 'task_item.dart';
 
@@ -30,11 +35,25 @@ class _TaskListBuilderState extends State<TaskListBuilder> {
               tasks.add(task);
             }
           }
+          if(tasks.isEmpty){
+            return Center(child: Column(
+              children: [
+                Lottie.asset(AppImages.emptyjson),
+                Text("No Tasks Found", style: Style.bodyStyle()),
+              ],
+            ),);
+          }
           return ListView.separated(
             itemCount: tasks.length,
             separatorBuilder: (context, index) => Gap(10),
             itemBuilder: (context, index) {
               return TaskItem(
+                onCompleted: () {
+                  box.put(tasks[index].id, tasks[index].copywith(isCompleted: true,color: 3));
+                },
+                onDelete: () {
+                  box.delete(tasks[index].id);
+                },
                 task: tasks[index],
               );
             },
